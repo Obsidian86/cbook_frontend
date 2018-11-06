@@ -1,0 +1,39 @@
+body{ 
+    margin: 0; 
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.header{
+    background-color: green;
+    height: 48px;
+    position: static;
+    top: 0;
+    border: 1px solid green; 
+    padding-bottom: 5px; 
+}  
+.header h3{ 
+    margin-left: 12px; 
+    color: white;
+}
+
+
+.displayList{ 
+    width: 100%; 
+}
+.displayList > div{
+    border-top: 1px solid #c2c2c2;
+    padding: 8px 15px; 
+}
+.displayList p{ line-height: 0; }
+.displayList > div > p{
+    font-style: italic;
+    color: gray;
+}
+.displayList .mainLine{
+    display: flex;
+    justify-content: space-between; 
+}
+.displayList > div:hover{
+    background-color: #f2f2f2;
+}  
