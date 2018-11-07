@@ -1,6 +1,5 @@
 export const convMoney = (amount) =>{
-    amount = parseFloat(amount).toFixed(2);
-
+    amount = parseFloat(amount).toFixed(2); 
     let chunks = amount.split(".");
     let newAmount = "";
     let count = 0;
@@ -11,9 +10,7 @@ export const convMoney = (amount) =>{
             newAmount += ",";
             count = 0;
         };
-    } 
-     console.log();
-    
+    }  
     amount = newAmount.split("").reverse().join("") + "." + chunks[1];
     return `$${amount}`;
 }

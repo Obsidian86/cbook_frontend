@@ -7,13 +7,13 @@ class ChooseAccount extends Component{
         let {accounts} = this.props;
         return(
             <div>
-                { <div className='displayList'>
+                <div className='displayList'>
                     { 
                         accounts.length > 0 ? accounts.map(account => {
                             return( <AccountCard account={account} key={ account.id } /> ) 
-                        }) : <div>Add new accounts</div> 
+                        }) : <div><br />Add a new account to begin<br /><br /></div> 
                     }
-                </div> }
+                </div>
             </div>
         );
     }

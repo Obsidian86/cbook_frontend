@@ -1,11 +1,12 @@
 .actionDrawer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 90px;
-    text-align: center; 
+    position: fixed;
+    top: 100vh;
+    width: 100%; 
+    text-align: center;
+    background-color: rgb(178, 235, 178);
+    z-index: 1; 
 } 
-.actionDrawer button{
+#drawerToggle{
     background-color: green;
     color: white;
     border: none; 
@@ -15,20 +16,64 @@
     border-radius: 50%;
     animation-name: rotateOff;
     animation-duration: .5s;
-    transform: rotate(0deg)
+    transform: rotate(0deg);
+    position: relative;
+    top: -80px;
 }
-.actionDrawer.opened button{
+.actionDrawer.opened{
+    bottom: 0;
+    top: auto;
+    box-shadow: 0 0 15px gray;
+}
+.actionDrawer.opened #drawerToggle{
     background-color: red;
     animation-name: rotate;
     animation-duration: .5s;
     transform: rotate(45deg)
 }
-
+h2{
+    color: green;
+    text-align: center; 
+}
+hr{
+    border-color: green;
+    width: 20%;
+}
+.actionDrawer form{
+    position: relative;
+    top: -50px;
+    text-align: left; 
+    width: 90%; 
+    margin: 0 auto;   
+}
+input[type=text]{
+    padding: 14px 3%;
+    width: 94%;
+    margin-top: 6px; 
+    border: none;
+    font-size: 1em;
+} 
+form button{
+    width: 100%;
+    border: none; 
+    padding: 10px; 
+    margin-top: 18px;
+    background-color: green;
+    color: white;
+    font-size: 1em;
+}
+label{
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+}
 @keyframes rotate{
-    from{ transform: rotate(0deg) }
-    to{ transform: rotate(45deg) }
+    from{ transform: rotate(0deg); background-color: green; }
+    to{ transform: rotate(45deg); background-color: red; }
 }
 @keyframes rotateOff{
-    from{ transform: rotate(45deg) }
-    to{ transform: rotate(0deg) }
+    from{ transform: rotate(45deg); background-color: red; }
+    to{ transform: rotate(0deg); background-color: green ;}
 }

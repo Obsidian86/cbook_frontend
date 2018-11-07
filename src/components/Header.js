@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Header = () => {
-        let page = "All Accounts";
+const Header = (props) => {
+    let page = props.title;
     return(
         <div className='header'>
             <h3>CheckBook - {page}</h3>
