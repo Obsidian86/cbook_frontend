@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class AccountCard extends Component{ 
     viewAccount = (account) =>{
         this.props.dispatch({
-            type: "CHANGE PAGE",
+            type: "VIEW PAGE",
             payload: {
                 page: "View Account",
                 accountView: account

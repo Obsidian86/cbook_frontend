@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div>
         <Header title={this.props.page}/>
-        { this.props.page === "All Accounts" ? <ChooseAccount /> : <ViewAccount account={ this.props.accountView } /> }
+        { this.props.page === "All Accounts" ? <ChooseAccount /> : <ViewAccount /> }
         <Drawer />
       </div>
     );
@@ -20,7 +20,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state)=>{
-  return{ page: state.page, accountView: state.accountView  }
+  return{ page: state.page }
 }
 
 export default connect(mapStateToProps)(App);

@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
 import '../styles/drawerStyles.css';
 import { connect } from 'react-redux';
+import NewAccountFields from './fragments/NewAccountFields';
+import NewTransactionsFields from './fragments/NewTransactionsFields';
 
-class Drawer extends Component{
-    constructor(){
-        super();
-        this.state = ({  drawer: false });
-    }
+class Drawer extends Component{ 
     toggleDrawer = () =>{
-        this.setState({ drawer: !this.state.drawer })
-    }
-    addAccount = () =>{
-            console.log("account")
-        /*
+        this.props.dispatch({
+            type: "TOGGLE DRAWER",
+            payload: { drawer: !this.props.drawer }
+        })
+    } 
+    addAccount = () =>{ 
         let accInfo = {
             name: document.getElementById('accountName').value,
             balance: document.getElementById("startingBalance").value,
             desc: document.getElementById("description").value,
         }
-
         this.props.dispatch({type: "ADD ACCOUNT", payload: accInfo});
         document.getElementById('accountName').value = "";
         document.getElementById("startingBalance").value = "";
         document.getElementById("description").value = "";
-        this.toggleDrawer(); */
+        this.toggleDrawer(); 
     }
     addTransaction = () => {
-        console.log("trans")
+        let transactionInfo = {
+            payee: document.getElementById('payee').value,
+            amount: document.getElementById("amount").value,
+            date: document.getElementById("date").value,
+            cleared: document.getElementById("cleared").value
+        }
+        this.props.dispatch({type: "ADD TRANSACTION", payload: transactionInfo});
+        this.toggleDrawer(); 
     }
 
     handleSubmit = (e) =>{
@@ -40,23 +45,14 @@ class Drawer extends Component{
 
     render(){
         return(
-            <div className={`actionDrawer ${ this.state.drawer ? "opened" : "" }`}>
+            <div className={`actionDrawer ${ this.props.drawer ? "opened" : "" }`}>
                 <button id="drawerToggle" onClick={this.toggleDrawer}>+</button>
                 <div>
                     <form action="#" onSubmit={this.handleSubmit}>
                         <h2>{ this.props.page === "All Accounts" ? "Adding new account" : "Adding transaction" }</h2> 
                         <hr />
-                        <label htmlFor='accountName'>Account name</label>
-                        <input type='text' id='accountName' name='accountName' /> 
-
-                        <label htmlFor='startingBalance'>Starting balance</label>
-                        <input type='text' id='startingBalance' name='startingBalance' />
-
-                        <label htmlFor='description' >Description</label>
-                        <input type='text' id='description' name='description' />
-                        <br />
-        { /*payee amount data cleared : rm name, start balance and desc */}
-                        <br />
+                            { this.props.page === "All Accounts" ? <NewAccountFields /> : <NewTransactionsFields /> } 
+                        <br /> <br />
                         <button>Submit</button>
                     </form>
                 </div>
@@ -66,6 +62,6 @@ class Drawer extends Component{
 } 
 
 const mapStateToProps = (state) => {
-    return { page: state.page }
+    return { page: state.page, drawer: state.drawer }
 }
 export default connect(mapStateToProps)(Drawer);

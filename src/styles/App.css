@@ -3,7 +3,26 @@ body{
     padding: 0;
     font-family: sans-serif;
 }
-
+button { 
+    cursor: pointer;
+    border: none;  
+}
+.centered{
+    text-align: center;
+} 
+.column{ 
+    display: flex;
+    justify-content: space-between;
+}
+.column button{
+    height: 40px;
+    margin-top: 12px; 
+    background: none;
+    font-weight: bold; 
+    color: gray;
+    border-bottom: 1px solid gray;
+    padding: 10px; 
+}
 .header{
     background-color: green;
     height: 48px;
@@ -40,3 +59,14 @@ body{
 .displayList > div:hover{
     background-color: #f2f2f2;
 }  
+.displayList .info{
+    padding: 0;
+}
+.displayList .info:hover{
+    background-color: white;
+}
+.displayList .info p{ 
+    color: black;
+    font-weight: bold;
+    line-height: .6em;
+}
