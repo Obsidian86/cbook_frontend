@@ -26,6 +26,18 @@ const cBookreducer = (state=defaultState, action) => {
                 }
             }
             return {...state, accountView: transaction, accounts: allAccounts };
+        case "DELETE_TRANSACTION": 
+            let accounts = state.accounts;
+            let accNum = () => {
+                for( let i=0; i<accounts.length; i++){
+                    if( accounts[i].id === action.payload.accountId ){
+                        return i;
+                    }
+                }
+            }  
+            accounts[accNum()].transactions = accounts[accNum()].transactions.filter((ac, index) => index !== action.payload.transaction ); 
+
+            return {...state, accounts: [...accounts], accountView: {...accounts[accNum()]} };
         case "VIEW PAGE":
             let vAccount = state.accounts.filter((account) => action.payload.accountView === account.id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }

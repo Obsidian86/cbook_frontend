@@ -19,8 +19,19 @@ class ViewAccount extends Component {
             document.getElementById(target).classList.add("show");
         }
     }
+
+    deleteTransaction = (transaction, accountId) =>{
+        this.props.dispatch({
+            type: "DELETE_TRANSACTION",
+            payload: {
+                accountId,
+                transaction
+            }
+        });
+    }
+
     render(){
-        let {name, desc, balance, transactions } = this.props.accountView;
+        let {name, desc, balance, transactions, id } = this.props.accountView;
         return(
             <div>
                 <div className='displayList'>
@@ -43,7 +54,10 @@ class ViewAccount extends Component {
                                 <p>{tran.date}</p>
                                 <p>{tran.cleared === "yes" ? "cleared" : "not cleared"}</p>
                             </div>
-                            <div className="options"><button className="green">update</button> <button className="red">delete</button></div>
+                            <div className="options">
+                                <button className="green">update</button>
+                                <button className="red" onClick={ () =>this.deleteTransaction(index, id ) } >delete</button>
+                            </div>
                         </div>
                     ))}
                     

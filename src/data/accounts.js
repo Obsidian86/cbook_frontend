@@ -17,13 +17,25 @@ export const allAccounts = [
         name: "Ally Savings",
         balance: 6002.219,
         desc: "Savings Account",
-        transactions: []
+        transactions:[
+            { payee: "x123", amount: 5001, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5002, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5003, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5004, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5005, date: "11/05/2018", cleared: "yes" }
+        ]
     },
     {
         id: 31,
         name: "Retirement",
         balance: 50000.219,
         desc: "Ally IRA accounts",
-        transactions: []
+        transactions: [
+            { payee: "x123", amount: 5001, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5002, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5003, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5004, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 5005, date: "11/05/2018", cleared: "yes" }
+        ]
     }
 ];
