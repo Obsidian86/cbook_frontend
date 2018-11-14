@@ -7,6 +7,14 @@ button {
     cursor: pointer;
     border: none;  
 }
+button.red{
+    background-color: darkred; 
+    color: white;
+}
+button.green{
+    background-color: green;
+    color: white;
+}
 .centered{
     text-align: center;
 } 
@@ -69,4 +77,24 @@ button {
     color: black;
     font-weight: bold;
     line-height: .6em;
+}
+.options{
+    height: 0;
+    overflow: hidden;
+    display: none;
+}
+
+.options button{ 
+    padding: 15px 0;
+    width: 49%;
+    font-weight: bold;
+}
+.show .options{
+    height: 50px;
+    display: block;
+    animation: slideIn .2s;
+}
+@keyframes slideIn{
+    from{height: 0px }
+    to{ height: 50px; }
 }

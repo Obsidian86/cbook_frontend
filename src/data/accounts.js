@@ -14,9 +14,16 @@ export const allAccounts = [
     },
     {
         id: 21,
-        name: "Capital One",
-        balance: 20002.219,
-        desc: "Main checking account",
+        name: "Ally Savings",
+        balance: 6002.219,
+        desc: "Savings Account",
+        transactions: []
+    },
+    {
+        id: 31,
+        name: "Retirement",
+        balance: 50000.219,
+        desc: "Ally IRA accounts",
         transactions: []
     }
 ];

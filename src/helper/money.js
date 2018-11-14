@@ -1,4 +1,7 @@
 export const convMoney = (amount) =>{
+    if(isNaN(amount) || !amount){
+         return ("$-0");
+    }
     amount = parseFloat(amount).toFixed(2); 
     let chunks = amount.split(".");
     let newAmount = "";
