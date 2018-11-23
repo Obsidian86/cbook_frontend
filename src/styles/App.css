@@ -64,8 +64,9 @@ button.green{
     display: flex;
     justify-content: space-between; 
 }
-.displayList > div:hover{
-    background-color: #f2f2f2;
+.displayList > .interact:hover{
+    background-color: #e2e2e2;
+    cursor: pointer;
 }  
 .displayList .info{
     padding: 0;

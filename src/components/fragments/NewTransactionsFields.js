@@ -1,6 +1,5 @@
 import React from 'react';
-
-
+ 
 let date = new Date();
 
 const NewTransactionsFields = () => (
@@ -17,7 +16,7 @@ const NewTransactionsFields = () => (
             <label htmlFor='cleared' >Cleared?</label>
             <select name="cleared" id="cleared">
                 <option value='yes'>Yes</option>
-                <option value='yes'>no</option>
+                <option value='no'>no</option>
             </select> 
         </div>
     );

@@ -16,7 +16,7 @@ class AccountCard extends Component{
     render(){
 
         return(
-            <div onClick={ () => this.viewAccount(this.props.account.id) }>
+            <div onClick={ () => this.viewAccount(this.props.account.id) } className="interact" >
                 <div className="mainLine">
                     <p>{ this.props.account.name }</p>
                     <p>{ convMoney(this.props.account.balance) } </p>

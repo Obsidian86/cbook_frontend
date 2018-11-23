@@ -45,7 +45,7 @@ class ViewAccount extends Component {
                         <p>{ convMoney(balance) }</p>
                     </div> 
                     { transactions.map((tran, index)=> (
-                        <div key={index} id={`t${index}`} onClick={() => this.toggleOptions(`t${index}`) }>
+                        <div key={index} id={`t${index}`} className="interact" onClick={() => this.toggleOptions(`t${index}`) }>
                             <div className="mainLine">
                                 <p>{ tran.payee } </p>
                                 <p>{ convMoney(tran.amount) }</p>
