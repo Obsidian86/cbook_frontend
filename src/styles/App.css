@@ -1,19 +1,21 @@
 body{ 
     margin: 0; 
     padding: 0;
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 button { 
     cursor: pointer;
-    border: none;  
+    border: none; 
 }
 button.red{
     background-color: darkred; 
-    color: white;
+    color: white; 
+    border-radius: 8px; 
 }
 button.green{
     background-color: green;
-    color: white;
+    color: white; 
+    border-radius: 8px; 
 }
 .centered{
     text-align: center;
@@ -27,10 +29,11 @@ button.green{
     margin-top: 12px; 
     background: none;
     font-weight: bold; 
-    color: gray;
+    color: rgb(116, 116, 116);
     border-bottom: 1px solid gray;
-    padding: 10px; 
+    padding: 10px;;
 }
+.column button:hover{ color: black; }
 .header{
     background-color: green;
     height: 48px;
@@ -44,16 +47,19 @@ button.green{
     margin-left: 12px; 
     color: white;
 }
- 
+h2{
+    color: green;
+    text-align: center; 
+}
 .displayList{ 
     width: 100%;
     padding-top: 55px;
     margin-bottom: 75px; 
-    border-bottom: 1px solid #c2c2c2;
+    border-bottom: 1px solid #d1d1d1;
 }
 .displayList > div{
-    border-top: 1px solid #c2c2c2;
-    padding: 8px 15px; 
+    border-top: 1px solid #dddcdc;
+    padding: 8px 15px;  
 }
 .displayList p{ line-height: 0; }
 .displayList > div > p{
@@ -63,37 +69,53 @@ button.green{
 .displayList .mainLine{
     display: flex;
     justify-content: space-between; 
+    font-weight: bold;
+    color: rgb(77, 77, 77);
+}
+.displayList > .interact{
+    border-left: 6px solid rgb(8, 189, 8);
+}
+.displayList > .interact:nth-child(odd){
+    border-left: 6px solid rgb(173, 173, 173);
+}
+.displayList .interact .column{
+    font-style: italic;
+    color: rgb(131, 131, 131);
 }
 .displayList > .interact:hover{
-    background-color: #e2e2e2;
+    background-color: #f1f1f1;
     cursor: pointer;
 }  
 .displayList .info{
     padding: 0;
-}
-.displayList .info:hover{
-    background-color: white;
-}
+    background-color: rgb(228, 228, 228);
+    height: 65px;
+} 
 .displayList .info p{ 
     color: black;
     font-weight: bold;
     line-height: .6em;
+    font-style: normal;
 }
-.options{
-    height: 0;
+.options{ 
     overflow: hidden;
     display: none;
-}
-
+    padding-top: 18px; 
+    margin-top: 12px; 
+    margin-bottom: 10px; 
+    border-top: 1px solid rgb(211, 211, 211); 
+} 
 .options button{ 
-    padding: 15px 0;
-    width: 49%;
-    font-weight: bold;
-}
-.show .options{
-    height: 50px;
+    padding: 12px 0;
+    width: 30%;
+    font-weight: bold; 
+    border-radius: 8px;
+} 
+.show .options{ 
     display: block;
-    animation: slideIn .2s;
+    animation: slideIn .2s; 
+    display: flex;
+    justify-content: space-around;
 }
 @keyframes slideIn{
     from{height: 0px }

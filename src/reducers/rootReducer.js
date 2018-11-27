@@ -17,7 +17,7 @@ const cBookreducer = (state=defaultState, action) => {
             newAccount.transactions = []; 
             return Object.assign({...state, accounts: [...state.accounts , newAccount] });
         case "ADD TRANSACTION": 
-            let transaction = Object.assign({ ...state.accountView, transactions: [action.payload, ...state.accountView.transactions ] } ); 
+            let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
             let allAccounts = [...state.accounts]; 
             for(let i=0; i<allAccounts.length; i++){
                 if(allAccounts[i].id === state.accountView.id){
@@ -28,16 +28,21 @@ const cBookreducer = (state=defaultState, action) => {
             return {...state, accountView: transaction, accounts: allAccounts };
         case "DELETE_TRANSACTION": 
             let accounts = state.accounts;
-            let accNum = () => {
-                for( let i=0; i<accounts.length; i++){
-                    if( accounts[i].id === action.payload.accountId ){
-                        return i;
-                    }
+            let accNum;
+            for( let i=0; i<accounts.length; i++){
+                if( accounts[i].id === action.payload.accountId ){
+                    accNum = i;
                 }
-            }  
-            accounts[accNum()].transactions = accounts[accNum()].transactions.filter((ac, index) => index !== action.payload.transaction ); 
+            } 
+            let subtractAmount = accounts[accNum].transactions.filter((ac, index) => index === action.payload.transaction )[0].amount; 
+            accounts[accNum].transactions = accounts[accNum].transactions.filter((ac, index) => index !== action.payload.transaction ); 
+            accounts[accNum].balance = parseFloat(state.accountView.balance) - parseFloat(subtractAmount);
 
-            return {...state, accounts: [...accounts], accountView: {...accounts[accNum()]} };
+            return {    
+                ...state,
+                accounts: [...accounts], 
+                accountView: {...accounts[accNum]} 
+            };
         case "VIEW PAGE":
             let vAccount = state.accounts.filter((account) => action.payload.accountView === account.id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }

@@ -49,9 +49,8 @@ class Drawer extends Component{
                 <button id="drawerToggle" onClick={this.toggleDrawer}>+</button>
                 <div>
                     <form action="#" onSubmit={this.handleSubmit}>
-                        <h2>{ this.props.page === "All Accounts" ? "Adding new account" : "Adding transaction" }</h2> 
-                        <hr />
-                            { this.props.page === "All Accounts" ? <NewAccountFields /> : <NewTransactionsFields /> } 
+                        <h2>{ this.props.page === "All Accounts" ? "Adding new account" : "Adding transaction" }</h2>  
+                        { this.props.page === "All Accounts" ? <NewAccountFields /> : <NewTransactionsFields /> } 
                         <br /> <br />
                         <button>Submit</button>
                     </form>
