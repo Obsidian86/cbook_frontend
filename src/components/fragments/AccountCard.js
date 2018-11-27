@@ -19,7 +19,7 @@ class AccountCard extends Component{
             <div onClick={ () => this.viewAccount(this.props.account.id) } className="interact" >
                 <div className="mainLine">
                     <p>{ this.props.account.name }</p>
-                    <p>{ convMoney(this.props.account.balance) } </p>
+                    <p className={this.props.account.balance < 0 ? "subtract" : "add"}>{ convMoney(this.props.account.balance) } </p>
                 </div>
                 <p>{this.props.account.desc }</p>
             </div>

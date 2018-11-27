@@ -48,7 +48,7 @@ class ViewAccount extends Component {
                         <div key={index} id={`t${index}`} className="interact" onClick={() => this.toggleOptions(`t${index}`) }>
                             <div className="mainLine">
                                 <p>{ tran.payee } </p>
-                                <p>{ convMoney(tran.amount) }</p>
+                                <p className={tran.amount < 0 ? "subtract" : "add"}>{ convMoney(tran.amount) }</p>
                             </div>
                             <div className="column">
                                 <p>{tran.date}</p>

@@ -72,6 +72,12 @@ h2{
     font-weight: bold;
     color: rgb(77, 77, 77);
 }
+.displayList .mainLine .add{
+    color: green;
+}
+.displayList .mainLine .subtract{
+    color: red;
+}
 .displayList > .interact{
     border-left: 6px solid rgb(8, 189, 8);
 }

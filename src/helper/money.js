@@ -7,9 +7,9 @@ export const convMoney = (amount) =>{
     let newAmount = "";
     let count = 0;
     for(let i=chunks[0].length -1; i>-1; i--){
-        newAmount += chunks[0][i];
+        newAmount += chunks[0][i]; 
         count++;
-        if(count === 3 && i !== 0){
+        if(count === 3 && i !== 0 && chunks[0][i-1] !== "-" ){
             newAmount += ",";
             count = 0;
         };
