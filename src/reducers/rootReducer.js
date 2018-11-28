@@ -1,4 +1,5 @@
 import { allAccounts } from '../data/accounts';
+import { todayDate } from '../helper/date';
 
 let defaultState = {
     page: "All Accounts",
@@ -12,9 +13,11 @@ const cBookreducer = (state=defaultState, action) => {
         case "GET ACCOUNTS": 
             return state;
         case "ADD ACCOUNT":  
-            let newAccount = action.payload;
-            newAccount.id = state.accounts.length + 1;
-            newAccount.transactions = []; 
+            let newAccount = {
+                ...action.payload,
+                id: state.accounts.length + 1,
+                transactions: [{ payee: "Initial amount", amount: action.payload.balance, date: todayDate(), cleared: "yes" }]
+            }; 
             return Object.assign({...state, accounts: [...state.accounts , newAccount] });
         case "ADD TRANSACTION": 
             let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
@@ -46,7 +49,7 @@ const cBookreducer = (state=defaultState, action) => {
         case "VIEW PAGE":
             let vAccount = state.accounts.filter((account) => action.payload.accountView === account.id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
-        case "HOME PAGE":  
+        case "HOME_PAGE":  
             return {...state, drawer: false, page: "All Accounts", accountView: {}};
         case "TOGGLE DRAWER":  
             return {...state, drawer: action.payload.drawer};

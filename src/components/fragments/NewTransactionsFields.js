@@ -1,7 +1,6 @@
 import React from 'react';
+import { todayDate } from '../../helper/date';
  
-let date = new Date();
-
 const NewTransactionsFields = () => (
         <div> 
             <label htmlFor='payee'>Payee</label>
@@ -11,7 +10,7 @@ const NewTransactionsFields = () => (
             <input type='text' id='amount' name='amount' />
 
             <label htmlFor='date'>Date</label>
-            <input type='text' id='date' name='date' defaultValue={ `${date.getMonth() + 1}-${date.getDate() }-${date.getFullYear()}` } />
+            <input type='text' id='date' name='date' defaultValue={ todayDate() } />
 
             <label htmlFor='cleared' >Cleared?</label>
             <select name="cleared" id="cleared">
