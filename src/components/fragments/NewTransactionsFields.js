@@ -12,11 +12,8 @@ const NewTransactionsFields = () => (
             <label htmlFor='date'>Date</label>
             <input type='text' id='date' name='date' defaultValue={ todayDate() } />
 
-            <label htmlFor='cleared' >Cleared?</label>
-            <select name="cleared" id="cleared">
-                <option value='yes'>Yes </option> 
-                <option value='no'>no</option>
-            </select> 
+            <label htmlFor='cleared' >Cleared?</label> 
+            <input type='checkbox' name='cleared' id="cleared" value="yes" checked="true" /> &nbsp; Yes
         </div>
     );
 

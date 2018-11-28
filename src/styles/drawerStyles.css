@@ -3,8 +3,12 @@
     top: 100vh;
     width: 100%; 
     text-align: center;
-    background-color: rgb(210, 240, 213);
     z-index: 1; 
+    background: #c4f4bc; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #c4f4bc 10%, #e6ffd1 44%, #cff9b8 44%, #e7ffdd 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #c4f4bc 10%,#e6ffd1 44%,#cff9b8 44%,#e7ffdd 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #c4f4bc 10%,#e6ffd1 44%,#cff9b8 44%,#e7ffdd 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4f4bc', endColorstr='#e7ffdd',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 } 
 #drawerToggle{
     background-color: green;
@@ -21,8 +25,11 @@
     top: -80px;
 }
 .actionDrawer.opened{
-    bottom: 0;
+    bottom: -32px;
     top: auto;
+    width: 92%;
+    margin: 0 4%;
+    border-radius: 5px 5px 0 0;
     box-shadow: 0 0 12px rgb(161, 161, 161);
 }
 .actionDrawer.opened #drawerToggle{
@@ -34,6 +41,7 @@
 .actionDrawer h2{
     background-color: green;
     padding: 8px 0;
+    border-radius: 5px 5px 0 0;
     color: white; 
     margin: 0;
 } 
@@ -46,12 +54,14 @@
 }
 input[type=text], select{
     padding: 12px 5px;
-    width: 90%;
+    width: 87%;
     margin: 5px 5%;
     border: none;
     font-size: 1em;
+    box-shadow: 0 0 3px rgb(83, 192, 83);
 }  
-select{ width: 92%; } 
+select{ width: 88%; } 
+#cleared{ font-size: 100px; transform: scale(2.5); border: 1px solid green;}
 form button{
     width: 90%;
     border: none; 

@@ -28,7 +28,7 @@ class Drawer extends Component{
             payee: document.getElementById('payee').value,
             amount: document.getElementById("amount").value,
             date: document.getElementById("date").value,
-            cleared: document.getElementById("cleared").value
+            cleared: document.getElementById("cleared").checked ? "yes" : "no"
         }
         this.props.dispatch({type: "ADD TRANSACTION", payload: transactionInfo});
         this.toggleDrawer(); 
