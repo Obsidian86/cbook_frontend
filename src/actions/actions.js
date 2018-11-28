@@ -3,6 +3,11 @@ export const addAccount = (accountInfo) => ({
     payload: accountInfo
 });
 
+export const deleteAccount = (id) => ({
+    type: "DELETE_ACCOUNT",
+    payload: {id}
+});
+
 export const deleteTransaction = (transaction, accountId) => ({
     type: "DELETE_TRANSACTION", 
     payload: { accountId, transaction }
@@ -23,6 +28,6 @@ export const viewAccount = (account) => ({
 });
 
 export const toggleDrawer = (drawer) =>({
-        type: "TOGGLE_DRAWER",
-        payload: { drawer: !drawer }
-    });
+    type: "TOGGLE_DRAWER",
+    payload: { drawer: !drawer }
+});

@@ -37,5 +37,18 @@ export const allAccounts = [
             { payee: "x123", amount: 5004, date: "11/05/2018", cleared: "yes" },
             { payee: "x123", amount: 5005, date: "11/05/2018", cleared: "yes" }
         ]
+    },
+    {
+        id: 312,
+        name: "Carmax Loan",
+        balance: -21000,
+        desc: "Carmax Auto loan",
+        transactions: [
+            { payee: "x123", amount: 286, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 286, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 286, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 286, date: "11/05/2018", cleared: "yes" },
+            { payee: "x123", amount: 286, date: "11/05/2018", cleared: "yes" }
+        ]
     }
 ];

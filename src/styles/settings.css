@@ -1,0 +1,44 @@
+#settingsContainer{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1114;
+}
+#settingsBox{
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 12px black;
+    height: 90vh;
+    margin: 5vh 5%;
+    width: 90%;
+    z-index: 3;
+    border-radius: 10px;
+}
+#settingsBox button{
+    display: block;
+    width: 85%;
+    padding: 10px; 
+    margin: 20px auto;
+}
+strong, #settingsBox p{ 
+    display: block;
+    margin-top: 25px; 
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
+}
+#settingsBox p{
+    font-size: 1em;
+    color: red;
+    width: 90%;
+    margin-left: 5%;
+}
+#settingsBox .close_btn{
+    position: absolute;
+    top: 0;
+    right: 10px; 
+    width: 50px;   
+    text-align: center; 
+}

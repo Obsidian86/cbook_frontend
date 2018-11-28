@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
-import { deleteTransaction, back } from '../actions/actions';
-
+import { deleteTransaction, back, deleteAccount } from '../actions/actions';
+import Settings from './Settings';
+ 
 class ViewAccount extends Component {  
+    constructor(){
+        super();
+        this.state = { settings: false }
+    }
+
+    toggleSettings = () => {
+        this.setState({
+            settings: !this.state.settings
+        });
+    }
 
     toggleOptions = (target) =>{ 
         let targ = document.getElementById(target);
@@ -23,11 +34,12 @@ class ViewAccount extends Component {
         let {name, desc, balance, transactions, id } = accountView; 
         return(
             <div>
+                { this.state.settings === true && <Settings name={name} id={id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
                 <div className='displayList'>
                     <div className="column">
                         <button onClick={ back }>Back</button>
                         <h2>{ name }</h2>
-                        <button>Settings</button>
+                        <button onClick={ this.toggleSettings } >Settings</button>
                     </div>
                     <div className='info centered'>
                         <p>{ desc }</p>
@@ -63,6 +75,7 @@ const mapStateToProps = (state) =>{
 const mapDispatchToProps = (dispatch) =>{
     return { 
         deleteTransaction: (index, id) => dispatch(deleteTransaction(index, id)),
+        deleteAccount: (id) => dispatch(deleteAccount(id)),
         back: () => dispatch(back())
     }
 }
