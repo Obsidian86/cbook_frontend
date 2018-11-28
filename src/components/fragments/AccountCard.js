@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import { convMoney } from '../../helper/money';
 import { connect } from 'react-redux';
+import { viewAccount } from '../../actions/actions';
 
 
 class AccountCard extends Component{ 
-    viewAccount = (account) =>{
-        this.props.dispatch({
-            type: "VIEW PAGE",
-            payload: {
-                page: "View Account",
-                accountView: account
-            }
-        });
-    }
-    render(){
-
+    render(){ 
         return(
-            <div onClick={ () => this.viewAccount(this.props.account.id) } className="interact" >
+            <div onClick={ () => this.props.viewAccount(this.props.account.id) } className="interact" >
                 <div className="mainLine">
                     <p>{ this.props.account.name }</p>
                     <p className={this.props.account.balance < 0 ? "subtract" : "add"}>{ convMoney(this.props.account.balance) } </p>
@@ -24,10 +15,16 @@ class AccountCard extends Component{
                 <p>{this.props.account.desc }</p>
             </div>
         );
-    }
-    
+    } 
 } 
+
+const mapDispatchToProps = dispatch => {
+    return{
+        viewAccount:  account => dispatch( viewAccount(account) )
+    }
+}
+
 const mapStateToProps = (state) =>{
     return {}
 }
-export default connect(mapStateToProps)(AccountCard);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountCard);

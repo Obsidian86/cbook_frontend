@@ -12,14 +12,14 @@ const cBookreducer = (state=defaultState, action) => {
     switch( action.type ){
         case "GET ACCOUNTS": 
             return state;
-        case "ADD ACCOUNT":  
+        case "ADD_ACCOUNT":  
             let newAccount = {
                 ...action.payload,
                 id: state.accounts.length + 1,
                 transactions: [{ payee: "Initial amount", amount: action.payload.balance, date: todayDate(), cleared: "yes" }]
             }; 
             return Object.assign({...state, accounts: [...state.accounts , newAccount] });
-        case "ADD TRANSACTION": 
+        case "ADD_TRANSACTION": 
             let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
             let allAccounts = [...state.accounts]; 
             for(let i=0; i<allAccounts.length; i++){
@@ -46,12 +46,12 @@ const cBookreducer = (state=defaultState, action) => {
                 accounts: [...accounts], 
                 accountView: {...accounts[accNum]} 
             };
-        case "VIEW PAGE":
+        case "VIEW_PAGE":
             let vAccount = state.accounts.filter((account) => action.payload.accountView === account.id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
         case "HOME_PAGE":  
             return {...state, drawer: false, page: "All Accounts", accountView: {}};
-        case "TOGGLE DRAWER":  
+        case "TOGGLE_DRAWER":   
             return {...state, drawer: action.payload.drawer};
         default:
             return state;

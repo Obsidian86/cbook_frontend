@@ -20,7 +20,7 @@ class ViewAccount extends Component {
     
     render(){
         let { back, deleteTransaction, accountView } = this.props;
-        let {name, desc, balance, transactions, id } = accountView;
+        let {name, desc, balance, transactions, id } = accountView; 
         return(
             <div>
                 <div className='displayList'>
@@ -57,7 +57,7 @@ class ViewAccount extends Component {
     
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) =>{ 
     return{accountView : state.accountView }
 }
 const mapDispatchToProps = (dispatch) =>{

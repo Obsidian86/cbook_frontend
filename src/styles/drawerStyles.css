@@ -78,7 +78,39 @@ label{
     margin: 16px 5% 4px 5%;
     font-weight: bold;
     color: green;
+    clear: both;
 }
+
+.f_choice{
+    color: gray;
+    font-weight: bold; 
+    padding: 5px 0 5px 26px; 
+    width: 35%;
+    text-align: center;
+    margin: 23px 0 23px 1%;
+    position: relative;
+    float: left;
+}
+.f_choice:hover{ 
+    color: black; 
+    cursor: pointer;
+}
+.f_choice.choice{
+    color: green;
+    border: 1px solid green;
+    margin-left: 5%;
+}
+.f_choice.choice::before{
+    position: absolute; 
+    left: 0px;
+    top: -1px;
+    padding: 5px 8px;
+    content: "✔";
+    border: 1px solid green;
+    background-color: green;
+    color: white;
+}
+
 @keyframes rotate{
     from{ transform: rotate(0deg); background-color: green; }
     to{ transform: rotate(45deg); background-color: red; }
