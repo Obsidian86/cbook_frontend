@@ -1,17 +1,17 @@
-import { allAccounts } from '../data/accounts';
 import { todayDate } from '../helper/date';
 
 let defaultState = {
     page: "All Accounts",
     accountView: {},
-    accounts: allAccounts,
+    loadState: "loading",
+    accounts: [],
     drawer: false
 };
 
 const cBookreducer = (state=defaultState, action) => {
     switch( action.type ){
-        case "GET ACCOUNTS": 
-            return state;
+        case "LOAD_ACCOUNTS":  
+            return {...state, loadState: "loaded", accounts: action.payload.accounts};
         case "ADD_ACCOUNT":  
             let newAccount = {
                 ...action.payload,
