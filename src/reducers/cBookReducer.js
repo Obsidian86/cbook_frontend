@@ -3,6 +3,7 @@ import { todayDate } from '../helper/date';
 let defaultState = {
     page: "All Accounts",
     accountView: {},
+    updatingTransaction: "",
     loadState: "loading",
     accounts: [],
     drawer: false
@@ -31,6 +32,8 @@ const cBookreducer = (state=defaultState, action) => {
                 }
             }
             return {...state, accountView: transaction, accounts: allAccounts };
+        case "SET_UPDATE_TRANSACTION":
+            return {...state, drawer: true, updatingTransaction: action.payload };
         case "DELETE_TRANSACTION": 
             let accounts = state.accounts;
             let accNum;

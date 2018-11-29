@@ -10,7 +10,7 @@ const NewTransactionsFields = (props) => (
             <p className='f_choice setDeposit setFalse' onClick={(event) => props.setChoice(event)}>withdrawl</p>
 
             <label htmlFor='date'>Amount</label>
-            <input type='text' id='amount' name='amount' className="field" />
+            <input type='number' id='amount' name='amount' className="field" step=".01" />
 
             <label htmlFor='date'>Date</label>
             <input type='text' id='date' name='date' defaultValue={ todayDate() } />

@@ -24,10 +24,14 @@ class Drawer extends Component{
             this.props.addAccount(accInfo);
             this.props.toggleDrawer(this.props.drawer);  
             
-        }else{
+        }else{ 
+            let amount = document.getElementById("amount").value === "" ? 0 : parseInt(document.getElementById("amount").value);  
+            if(amount !== 0 && !this.state.setDeposit){
+                amount = (parseInt(amount) * -1);
+            }
             this.props.addTransaction({
                 payee: document.getElementById('payee').value,
-                amount: this.state.setDeposit ? document.getElementById("amount").value : (parseInt(document.getElementById("amount").value) * -1),
+                amount: amount,
                 date: document.getElementById("date").value,
                 cleared: this.state.setCleared ? "yes" : "no"
             });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
-import { deleteTransaction, back, deleteAccount } from '../actions/actions';
+import { deleteTransaction, back, deleteAccount, setUpdateTransaction } from '../actions/actions';
 import Settings from './Settings';
  
 class ViewAccount extends Component {  
@@ -30,8 +30,8 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, deleteTransaction, accountView } = this.props;
-        let {name, desc, balance, transactions, id } = accountView; 
+        let { back, deleteTransaction, accountView, setUpdateTransaction } = this.props;
+        let { name, desc, balance, transactions, id } = accountView; 
         return(
             <div>
                 { this.state.settings === true && <Settings name={name} id={id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
@@ -56,8 +56,8 @@ class ViewAccount extends Component {
                                 <p>{tran.cleared === "yes" ? "cleared" : "not cleared"}</p>
                             </div>
                             <div className="options">
-                                <button className="green">update</button>
-                                <button className="red" onClick={ () => deleteTransaction(index, id ) } >delete</button>
+                                <button className="green" onClick={()=>{ setUpdateTransaction(index, tran) }} >update</button>
+                                <button className="red" onClick={ () => deleteTransaction(index) } >delete</button>
                             </div>
                         </div>
                     ))}
@@ -76,6 +76,7 @@ const mapDispatchToProps = (dispatch) =>{
     return { 
         deleteTransaction: (index, id) => dispatch(deleteTransaction(index, id)),
         deleteAccount: (id) => dispatch(deleteAccount(id)),
+        setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
         back: () => dispatch(back())
     }
 }

@@ -6,7 +6,7 @@ const NewAccountFields = () => (
             <input type='text' id='accountName' name='accountName' className="field" /> 
 
             <label htmlFor='startingBalance'>Starting balance</label>
-            <input type='text' id='startingBalance' name='startingBalance' className="field" />
+            <input type='number' id='startingBalance' name='startingBalance' className="field" step=".01"/>
 
             <label htmlFor='description' >Description</label>
             <input type='text' id='description' name='description' className="field" />
