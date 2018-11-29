@@ -1,5 +1,3 @@
-import { allAccounts } from '../data/accounts';
-
 export const addAccount = (accountInfo) => ({
     type: "ADD_ACCOUNT", 
     payload: accountInfo
@@ -41,12 +39,30 @@ export const setAccounts = (accountData) =>({
     payload: { accounts: accountData} 
 });
 
+const apiCall = async (callParams) =>{
+    let URL = "http://localhost:3089/";
+    return fetch(URL, {
+        method: callParams.method || "GET"
+    })
+    .then(data => data.json())
+    .then(data => data)
+    .catch(err => {
+        console.log(err);
+        return([]);
+    })
+}
+
 export const loadAccounts = (dispatch) =>{ 
-    return (dispatch) => {
-        allAccounts
-        .then(data => {
-            dispatch(setAccounts(data))
-        })
+    return async (dispatch) => { 
+        let data = await apiCall({}); 
+        let useData;
+        if( localStorage.getItem("localAccounts") === null ){ 
+            useData = data.accounts;
+        }else{
+            let localData = JSON.parse(localStorage.getItem("localAccounts"));
+            useData = localData.synced > data.synced ? localData.accounts : data.accounts;
+        } 
+        dispatch(setAccounts(useData));
     } 
 }
 
