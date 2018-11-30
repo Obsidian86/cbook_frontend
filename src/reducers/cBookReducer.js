@@ -21,7 +21,7 @@ const cBookreducer = (state=defaultState, action) => {
             }; 
             return Object.assign({...state, accounts: [...state.accounts , newAccount] });
         case "DELETE_ACCOUNT":   
-            return { accounts: state.accounts.filter(acc => acc.id !== action.payload.id ), drawer: false, page: "All Accounts", accountView: {}};
+            return { accounts: state.accounts.filter(acc => acc._id !== action.payload.id ), drawer: false, page: "All Accounts", accountView: {}};
         case "ADD_TRANSACTION": 
             let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
             let allAccounts = [...state.accounts]; 

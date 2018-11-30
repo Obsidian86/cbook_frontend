@@ -9,7 +9,7 @@ class ChooseAccount extends Component{
 
         let list = accounts.length > 0 ? 
             accounts.map(account => {
-                return( <AccountCard account={account} key={ account.id } /> ) 
+                return( <AccountCard account={account} key={ account._id } /> ) 
             }) 
             : <p><strong>Add a new account to begin</strong></p>;
 

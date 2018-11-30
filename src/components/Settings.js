@@ -10,14 +10,14 @@ class Settings extends Component{
     }
 
     deleteAccount = () => { 
-        if(this.state.verify){
+        if(this.state.verify){ 
             this.props.deleteAccount(this.props.id);
         }else{
             this.setState({verify: true});
         }
     }
 
-    render(){ 
+    render(){  
         return(
             <div id="settingsContainer">
                 <div id="settingsBox">

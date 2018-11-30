@@ -7,7 +7,7 @@ import Settings from './Settings';
 class ViewAccount extends Component {  
     constructor(){
         super();
-        this.state = { settings: false }
+        this.state = { settings: false } 
     }
 
     toggleSettings = () => {
@@ -31,10 +31,11 @@ class ViewAccount extends Component {
     
     render(){
         let { back, deleteTransaction, accountView, setUpdateTransaction } = this.props;
-        let { name, desc, balance, transactions, id } = accountView; 
+        let { name, desc, balance, transactions, _id } = accountView; 
+
         return(
             <div>
-                { this.state.settings === true && <Settings name={name} id={id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
+                { this.state.settings === true && <Settings name={name} id={_id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
                 <div className='displayList'>
                     <div className="column">
                         <button onClick={ back }>Back</button>
