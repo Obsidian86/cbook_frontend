@@ -1,20 +1,9 @@
 import { apiCall } from '../helper/apiCall';
-//const USER = "5c01643ec393a44374a96f76";
-const USER = "5c02cdace1c0fd2b68fab2ba";
+const USER = "5c01643ec393a44374a96f76";
+
+//const USER = "5c02cdace1c0fd2b68fab2ba";
 
 
-
- 
-export const setUpdateTransaction = (tran) => ({
-    type: "SET_UPDATE_TRANSACTION", 
-    payload: tran
-});
-
-export const deleteTransaction = (transaction, accountId) => ({
-    type: "DELETE_TRANSACTION", 
-    payload: { accountId, transaction }
-});
- 
 export const back = () => ({ type: "HOME_PAGE" });
 
 export const toggleDrawer = (drawer) =>({
@@ -44,9 +33,50 @@ export const addTransaction = (transactionInfo) => {
             body: JSON.stringify(transactionInfo)
         });
         if(data.synced > 0){
-            dispatch(setAddTransaction(transactionInfo.transaction));
+            dispatch(setAddTransaction(data.newTrans));
         }
         
+    }
+};
+
+const setDeleteTransaction = (accountId, transId) => ({
+    type: "DELETE_TRANSACTION", 
+    payload: { accountId, transId }
+});
+
+export const deleteTransaction = (accountId, transId) => {
+    return async (dispatch) =>{
+        let data = await apiCall({
+            method: "DELETE",
+            url: "transactions/",
+            body: JSON.stringify({accountId, transId})
+        });
+        if(data.synced > 0){
+            dispatch(setDeleteTransaction(accountId, transId));
+        }
+    }
+};
+ 
+export const setUpdateTransaction = (tran) => ({
+    type: "SET_UPDATE_TRANSACTION", 
+    payload: tran
+});
+
+const setSendUpdateTransaction = (tran) => ({
+    type: "SEND_UPDATE_TRANSACTION", 
+    payload: tran
+});
+ 
+export const sendUpdateTransaction = (tran) => { 
+    return async (dispatch) =>{
+        let data = await apiCall({
+            method: "PUT",
+            url: "transactions/",
+            body: JSON.stringify(tran)
+        });
+        if(data.synced > 0){
+            dispatch(setSendUpdateTransaction(tran));
+        }
     }
 };
 
@@ -83,16 +113,10 @@ export const deleteAccount = (id) => {
             body: JSON.stringify({account: id})
         });
         if(data.synced > 0){
-            //let localData = JSON.parse(localStorage.getItem("localAccounts"));
-            //localData.synced = data.synced;
-            //localStorage.setItem("localAccounts", JSON.stringify(localData));
             dispatch(setDeleteAccount(id));
         }
     }
-};
-
-
-
+}; 
 
 const setAccounts = (accountData) =>({
     type: "LOAD_ACCOUNTS",
@@ -110,8 +134,7 @@ export const loadAccounts = (dispatch) =>{
         }else{
             let localData = JSON.parse(localStorage.getItem("localAccounts"));
             useData = localData.synced > data.synced ? localData.accounts : data.accounts;
-        } 
-        //localStorage.setItem("localAccounts", JSON.stringify(useData));
+        }  
         dispatch(setAccounts(useData));
     } 
 }

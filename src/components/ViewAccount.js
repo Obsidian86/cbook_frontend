@@ -56,8 +56,8 @@ class ViewAccount extends Component {
                                 <p>{tran.cleared === "yes" ? "cleared" : "not cleared"}</p>
                             </div>
                             <div className="options">
-                                <button className="green" onClick={()=>{ setUpdateTransaction(index, tran) }} >update</button>
-                                <button className="red" onClick={ () => deleteTransaction(index) } >delete</button>
+                                <button className="green" onClick={()=>{ setUpdateTransaction(tran) }} >update</button>
+                                <button className="red" onClick={ () => deleteTransaction(_id, tran._id) } >delete</button>
                             </div>
                         </div>
                     ))}
@@ -74,7 +74,7 @@ const mapStateToProps = (state) =>{
 }
 const mapDispatchToProps = (dispatch) =>{
     return { 
-        deleteTransaction: (index, id) => dispatch(deleteTransaction(index, id)),
+        deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)),
         deleteAccount: (id) => dispatch(deleteAccount(id)),
         setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
         back: () => dispatch(back())

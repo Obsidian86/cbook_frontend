@@ -10,6 +10,8 @@ let defaultState = {
 };
 
 const cBookreducer = (state=defaultState, action) => {
+    let accounts = [...state.accounts];
+    let accNum;
     switch( action.type ){
         case "LOAD_ACCOUNTS":  
             return {...state, loadState: "loaded", accounts: action.payload.accounts};
@@ -32,20 +34,30 @@ const cBookreducer = (state=defaultState, action) => {
                 }
             }
             return {...state, accountView: transaction, accounts: allAccounts };
-        case "SET_UPDATE_TRANSACTION":
+        case "SET_UPDATE_TRANSACTION":   
             return {...state, drawer: true, updatingTransaction: action.payload };
-        case "DELETE_TRANSACTION": 
-            let accounts = state.accounts;
-            let accNum;
+        case "SEND_UPDATE_TRANSACTION": 
+            for( let i=0; i< accounts.length; i++){ 
+                if( accounts[i]._id === action.payload.account_id ){
+                    accNum = i;
+                    for(let j=0; j<accounts[i].transactions.length; j++){
+                        if(accounts[i].transactions[j]._id === action.payload.transaction_id){
+                            accounts[i].balance =  (parseFloat(accounts[i].balance) - parseFloat(accounts[i].transactions[j].amount)) + parseFloat(action.payload.transaction.amount);
+                            accounts[i].transactions[j] = {...action.payload.transaction, _id: action.payload.transaction_id}
+                        } 
+                    } 
+                }
+            }  
+            return {...state, drawer: false, updatingTransaction: "", accounts: [...accounts], accountView: accounts[accNum] };
+        case "DELETE_TRANSACTION":
             for( let i=0; i<accounts.length; i++){
-                if( accounts[i].id === action.payload.accountId ){
+                if( accounts[i]._id === action.payload.accountId ){
                     accNum = i;
                 }
             } 
-            let subtractAmount = accounts[accNum].transactions.filter((ac, index) => index === action.payload.transaction )[0].amount; 
-            accounts[accNum].transactions = accounts[accNum].transactions.filter((ac, index) => index !== action.payload.transaction ); 
+            let subtractAmount = accounts[accNum].transactions.filter((ac) => ac._id === action.payload.transId )[0].amount; 
+            accounts[accNum].transactions = accounts[accNum].transactions.filter((ac) => ac._id !== action.payload.transId ); 
             accounts[accNum].balance = parseFloat(state.accountView.balance) - parseFloat(subtractAmount);
-
             return {    
                 ...state,
                 accounts: [...accounts], 
@@ -56,8 +68,8 @@ const cBookreducer = (state=defaultState, action) => {
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
         case "HOME_PAGE":  
             return {...state, drawer: false, page: "All Accounts", accountView: {}};
-        case "TOGGLE_DRAWER":   
-            return {...state, drawer: action.payload.drawer};
+        case "TOGGLE_DRAWER": 
+            return {...state, drawer: action.payload.drawer, updatingTransaction: ""};
         default:
             return state;
     }

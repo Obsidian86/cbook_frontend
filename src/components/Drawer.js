@@ -3,10 +3,10 @@ import '../styles/drawerStyles.css';
 import { connect } from 'react-redux';
 import NewAccountFields from './fragments/NewAccountFields';
 import NewTransactionsFields from './fragments/NewTransactionsFields';
-import { toggleDrawer, addTransaction, addAccount } from '../actions/actions';
+import { toggleDrawer, addTransaction, addAccount, sendUpdateTransaction } from '../actions/actions';
 
 class Drawer extends Component{ 
-    constructor(){
+    constructor(props){
         super();
         this.state = {
             setDeposit: true,
@@ -25,27 +25,35 @@ class Drawer extends Component{
             this.props.toggleDrawer(this.props.drawer);  
             
         }else{  
-            let amount = document.getElementById("amount").value === "" ? 0 : parseInt(document.getElementById("amount").value);  
-            if(amount !== 0 && !this.state.setDeposit){
-                amount = (parseInt(amount) * -1);
-            }
-            this.props.addTransaction({
+            let amount = document.getElementById("amount").value === "" ? 0 : parseFloat(document.getElementById("amount").value);  
+            if(amount !== 0 && !this.state.setDeposit){ amount = (parseFloat(amount) * -1); }
+            let transactionInfo = {
                 account_id: this.props.accountId,
+                transaction_id: this.props.updatingTransaction._id || 0,
                 transaction: {
                     payee: document.getElementById('payee').value,
                     amount: amount,
                     date: document.getElementById("date").value,
                     cleared: this.state.setCleared ? "yes" : "no"
+                }
+            };
+            if( this.props.updatingTransaction === ""){
+                this.props.addTransaction(transactionInfo);
+            }else{
+                this.props.sendUpdateTransaction(transactionInfo);
             }
-        });
+           
         }
         for(let i=0; i< document.getElementsByClassName("field").length; i++){ 
             document.getElementsByClassName("field")[i].value = "";
         }
         this.props.toggleDrawer(this.props.drawer); 
         
+    } 
+    changeSelVal = (targ, val) => { 
+        this.setState({ [targ]: val });
     }
-
+ 
     setChoice = (event) =>{  
         let selectionClass = event.target.classList.contains("setDeposit") ?  "setDeposit" : "setCleared"; 
         let selection = document.getElementsByClassName(selectionClass);
@@ -55,36 +63,53 @@ class Drawer extends Component{
             for( let i=0; i<selection.length; i++){ selection[i].classList.toggle("choice") } 
         };
         if(change){ 
-            this.setState({
-                [selectionClass]: event.target.classList.contains("setFalse") ? false : true
-            });
+            this.changeSelVal(  selectionClass, event.target.classList.contains("setFalse") ? false : true );
         };  
     }
-
+ 
     render(){
+        let drawerTitle = "";
+        if(this.props.page === "All Accounts"){
+            drawerTitle = "Adding new account";
+        }else{
+            drawerTitle = this.props.updatingTransaction !== "" ? "Updating transaction" : "Adding transaction";
+        }
+        
+        let drawer;
+        if( this.props.drawer ){
+            drawer = 
+            <form action="#" onSubmit={this.handleSubmit}>
+                <h2>{ drawerTitle }</h2>  
+                { this.props.page === "All Accounts" ? <NewAccountFields /> : <NewTransactionsFields setChoice={this.setChoice} changeSelVal={this.changeSelVal} /> } 
+                <br /> <br />
+                <button>Submit</button>
+            </form>
+        }else{
+            drawer = <p>Loading content</p>;
+        } 
         return(
             <div className={`actionDrawer ${ this.props.drawer ? "opened" : "" }`}>
                 <button id="drawerToggle" onClick={() => this.props.toggleDrawer(this.props.drawer) }>+</button>
                 <div>
-                    <form action="#" onSubmit={this.handleSubmit}>
-                        <h2>{ this.props.page === "All Accounts" ? "Adding new account" : "Adding transaction" }</h2>  
-                        { this.props.page === "All Accounts" ? <NewAccountFields /> : <NewTransactionsFields setChoice={this.setChoice} /> } 
-                        <br /> <br />
-                        <button>Submit</button>
-                    </form>
+                    {drawer}
                 </div>
             </div>
         )
+         
+
     }
 } 
 const mapDispatchToProps = (dispatch) => ({
         toggleDrawer: (drawer) => dispatch(toggleDrawer(drawer)),
         addTransaction: (transactionInfo) => dispatch(addTransaction(transactionInfo)),
+        sendUpdateTransaction: (transactionInfo) => dispatch(sendUpdateTransaction(transactionInfo)),
         addAccount: (accountInfo) => dispatch(addAccount(accountInfo))
     });
+
 const mapStateToProps = (state) => ({ 
         page: state.page, 
         drawer: state.drawer,
-        accountId: state.accountView._id
+        accountId: state.accountView._id,
+        updatingTransaction: state.updatingTransaction
     });
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer);
