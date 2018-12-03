@@ -24,17 +24,20 @@ class Drawer extends Component{
             this.props.addAccount(accInfo);
             this.props.toggleDrawer(this.props.drawer);  
             
-        }else{ 
+        }else{  
             let amount = document.getElementById("amount").value === "" ? 0 : parseInt(document.getElementById("amount").value);  
             if(amount !== 0 && !this.state.setDeposit){
                 amount = (parseInt(amount) * -1);
             }
             this.props.addTransaction({
-                payee: document.getElementById('payee').value,
-                amount: amount,
-                date: document.getElementById("date").value,
-                cleared: this.state.setCleared ? "yes" : "no"
-            });
+                account_id: this.props.accountId,
+                transaction: {
+                    payee: document.getElementById('payee').value,
+                    amount: amount,
+                    date: document.getElementById("date").value,
+                    cleared: this.state.setCleared ? "yes" : "no"
+            }
+        });
         }
         for(let i=0; i< document.getElementsByClassName("field").length; i++){ 
             document.getElementsByClassName("field")[i].value = "";
@@ -81,6 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
     });
 const mapStateToProps = (state) => ({ 
         page: state.page, 
-        drawer: state.drawer 
+        drawer: state.drawer,
+        accountId: state.accountView._id
     });
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

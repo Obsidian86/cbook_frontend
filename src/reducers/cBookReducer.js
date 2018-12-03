@@ -52,7 +52,7 @@ const cBookreducer = (state=defaultState, action) => {
                 accountView: {...accounts[accNum]} 
             };
         case "VIEW_PAGE":
-            let vAccount = state.accounts.filter((account) => action.payload.accountView === account.id ); 
+            let vAccount = state.accounts.filter((account) => action.payload.accountView === account._id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
         case "HOME_PAGE":  
             return {...state, drawer: false, page: "All Accounts", accountView: {}};

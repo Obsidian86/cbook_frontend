@@ -5,8 +5,7 @@ import { loadAccounts } from '../actions/actions';
 
 class ChooseAccount extends Component{
     render(props){ 
-        let {accounts, loadState} = this.props; 
-
+        let {accounts, loadState} = this.props;  
         let list = accounts.length > 0 ? 
             accounts.map(account => {
                 return( <AccountCard account={account} key={ account._id } /> ) 

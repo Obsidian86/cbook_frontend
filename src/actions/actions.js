@@ -1,5 +1,6 @@
 import { apiCall } from '../helper/apiCall';
-const USER = "5c01643ec393a44374a96f76";
+//const USER = "5c01643ec393a44374a96f76";
+const USER = "5c02cdace1c0fd2b68fab2ba";
 
 
 
@@ -13,12 +14,7 @@ export const deleteTransaction = (transaction, accountId) => ({
     type: "DELETE_TRANSACTION", 
     payload: { accountId, transaction }
 });
-
-export const addTransaction = (transactionInfo) => ({
-    type: "ADD_TRANSACTION", 
-    payload: transactionInfo
-});
-
+ 
 export const back = () => ({ type: "HOME_PAGE" });
 
 export const toggleDrawer = (drawer) =>({
@@ -26,7 +22,7 @@ export const toggleDrawer = (drawer) =>({
     payload: { drawer: !drawer }
 });
 
-export const viewAccount = (account) => ({ 
+export const viewAccount = (account) => ({
     type: "VIEW_PAGE",
     payload: {
         page: "View Account",
@@ -35,6 +31,25 @@ export const viewAccount = (account) => ({
 });
  
 
+//TRANSACTION FUNCTIONS
+const setAddTransaction = (transactionInfo) => ({
+    type: "ADD_TRANSACTION", 
+    payload: transactionInfo
+});
+export const addTransaction = (transactionInfo) => {
+    return async (dispatch) =>{
+        let data = await apiCall({
+            method: "POST",
+            url: "transactions/",
+            body: JSON.stringify(transactionInfo)
+        });
+        if(data.synced > 0){
+            dispatch(setAddTransaction(transactionInfo.transaction));
+        }
+        
+    }
+};
+
 //BANK ACCOUNT FUNCTIONS
 
 const setAddAccount = (accountInfo) => ({
@@ -42,7 +57,7 @@ const setAddAccount = (accountInfo) => ({
     payload: accountInfo
 });
 
-export const addAccount = (accountInfo) => {
+export const addAccount = (accountInfo) => {  
     return async (dispatch) =>{
         let data = await apiCall({
             url: "accounts/" + USER, 

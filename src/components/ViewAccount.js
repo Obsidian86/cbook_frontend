@@ -31,8 +31,7 @@ class ViewAccount extends Component {
     
     render(){
         let { back, deleteTransaction, accountView, setUpdateTransaction } = this.props;
-        let { name, desc, balance, transactions, _id } = accountView; 
-
+        let { name, desc, balance, transactions, _id } = accountView;  
         return(
             <div>
                 { this.state.settings === true && <Settings name={name} id={_id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }

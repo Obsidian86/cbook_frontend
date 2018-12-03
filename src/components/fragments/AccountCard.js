@@ -5,9 +5,9 @@ import { viewAccount } from '../../actions/actions';
 
 
 class AccountCard extends Component{ 
-    render(){ 
+    render(){  
         return(
-            <div onClick={ () => this.props.viewAccount(this.props.account.id) } className="interact" >
+            <div onClick={ () => this.props.viewAccount(this.props.account._id) } className="interact" >
                 <div className="mainLine">
                     <p>{ this.props.account.name }</p>
                     <p className={this.props.account.balance < 0 ? "subtract" : "add"}>{ convMoney(this.props.account.balance) } </p>
