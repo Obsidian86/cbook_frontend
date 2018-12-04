@@ -1,7 +1,9 @@
 import { todayDate } from '../helper/date';
 
 let defaultState = {
-    page: "All Accounts",
+    page: "Log In",
+    message: "",
+    user: "",
     accountView: {},
     updatingTransaction: "",
     loadState: "loading",
@@ -13,17 +15,18 @@ const cBookreducer = (state=defaultState, action) => {
     let accounts = [...state.accounts];
     let accNum;
     switch( action.type ){
+        case "LOGIN_USER":
+            return {...state, message: "", user: action.payload.userId, page: "All Accounts" };
+        case "LOGOUT_USER":
+            return { ...defaultState };
         case "LOAD_ACCOUNTS":  
             return {...state, loadState: "loaded", accounts: action.payload.accounts};
         case "ADD_ACCOUNT":  
-            let newAccount = {
-                ...action.payload,
-                id: state.accounts.length + 1,
-                transactions: [{ payee: "Initial amount", amount: action.payload.balance, date: todayDate(), cleared: "yes" }]
-            }; 
-            return Object.assign({...state, accounts: [...state.accounts , newAccount] });
+            let newAcc = { ...action.payload.accountInfo }
+            newAcc.transactions = [action.payload.tran];  
+            return Object.assign({...state, accounts: [...state.accounts, newAcc ] });
         case "DELETE_ACCOUNT":   
-            return { accounts: state.accounts.filter(acc => acc._id !== action.payload.id ), drawer: false, page: "All Accounts", accountView: {}};
+            return { ...state, accounts: accounts.filter(acc => acc._id !== action.payload.id ), drawer: false, page: "All Accounts", accountView: {}};
         case "ADD_TRANSACTION": 
             let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
             let allAccounts = [...state.accounts]; 
@@ -63,13 +66,13 @@ const cBookreducer = (state=defaultState, action) => {
                 accounts: [...accounts], 
                 accountView: {...accounts[accNum]} 
             };
-        case "VIEW_PAGE":
+        case "VIEW_PAGE": 
             let vAccount = state.accounts.filter((account) => action.payload.accountView === account._id ); 
             return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
         case "HOME_PAGE":  
             return {...state, drawer: false, page: "All Accounts", accountView: {}};
         case "TOGGLE_DRAWER": 
-            return {...state, drawer: action.payload.drawer, updatingTransaction: ""};
+            return {...state, drawer: action.payload.drawer, updatingTransaction: ""}; 
         default:
             return state;
     }

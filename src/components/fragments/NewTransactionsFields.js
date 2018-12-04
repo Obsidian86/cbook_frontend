@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { todayDate } from '../../helper/date'; 
 import { connect } from 'react-redux'; 
+import { isRegExp } from 'util';
  
 class NewTransactionsFields extends Component {  
     
@@ -13,12 +14,11 @@ class NewTransactionsFields extends Component {
 
     render(){  
         let upTran = this.props.updatingTransaction; 
-        upTran.amount = upTran.amount.toString();
         let clearedFields;
         let depositFields;
         let amountField; 
 
-        if(upTran === ""){
+        if(upTran === ""){ 
             amountField = () =>( <input type='number' id='amount' name='amount' className="field" step=".01" defaultValue="" /> );
             clearedFields = () =>(
                 <span>
@@ -33,6 +33,7 @@ class NewTransactionsFields extends Component {
                 </span>
             );
         } else{
+            upTran.amount = upTran.amount.toString();
             clearedFields = () =>(
                 <span>
                     <p className={`f_choice setCleared field ${ upTran.cleared === "yes"  ? "choice" : ""}`} onClick={(event) => this.props.setChoice(event)}>Cleared</p>

@@ -31,11 +31,11 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, accountView, setUpdateTransaction } = this.props;
+        let { back, accountView, setUpdateTransaction, userId } = this.props;
         let { name, desc, balance, transactions, _id } = accountView;   
         return(
             <div>
-                { this.state.settings === true && <Settings name={name} id={_id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
+                { this.state.settings === true && <Settings name={name} id={_id} userId={userId} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
                 <div className='displayList'>
                     <div className="column">
                         <button onClick={ back }>Back</button>
@@ -59,11 +59,14 @@ class ViewAccount extends Component {
     }
     
 } 
-const mapStateToProps = (state) =>({accountView : state.accountView});
+const mapStateToProps = (state) =>({
+    accountView : state.accountView,
+    userId: state.user
+});
 const mapDispatchToProps = (dispatch) =>{
     return { 
         deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)),
-        deleteAccount: (id) => dispatch(deleteAccount(id)),
+        deleteAccount: (id, userId) => dispatch(deleteAccount(id, userId)),
         setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
         back: () => dispatch(back())
     }

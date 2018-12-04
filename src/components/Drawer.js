@@ -21,7 +21,7 @@ class Drawer extends Component{
                 balance: document.getElementById("startingBalance").value,
                 desc: document.getElementById("description").value,
             }
-            this.props.addAccount(accInfo);
+            this.props.addAccount(accInfo, this.props.userId);
             this.props.toggleDrawer(this.props.drawer);  
             
         }else{  
@@ -38,9 +38,9 @@ class Drawer extends Component{
                 }
             };
             if( this.props.updatingTransaction === ""){
-                this.props.addTransaction(transactionInfo);
+                this.props.addTransaction(transactionInfo, this.props.userId);
             }else{
-                this.props.sendUpdateTransaction(transactionInfo);
+                this.props.sendUpdateTransaction(transactionInfo, this.props.userId);
             }
            
         }
@@ -95,21 +95,20 @@ class Drawer extends Component{
                 </div>
             </div>
         )
-         
-
     }
 } 
 const mapDispatchToProps = (dispatch) => ({
         toggleDrawer: (drawer) => dispatch(toggleDrawer(drawer)),
-        addTransaction: (transactionInfo) => dispatch(addTransaction(transactionInfo)),
-        sendUpdateTransaction: (transactionInfo) => dispatch(sendUpdateTransaction(transactionInfo)),
-        addAccount: (accountInfo) => dispatch(addAccount(accountInfo))
+        addTransaction: (transactionInfo, userId) => dispatch(addTransaction(transactionInfo, userId)),
+        sendUpdateTransaction: (transactionInfo, userId) => dispatch(sendUpdateTransaction(transactionInfo, userId)),
+        addAccount: (accountInfo, userId) => dispatch(addAccount(accountInfo, userId))
     });
 
 const mapStateToProps = (state) => ({ 
         page: state.page, 
         drawer: state.drawer,
         accountId: state.accountView._id,
+        userId: state.user,
         updatingTransaction: state.updatingTransaction
     });
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

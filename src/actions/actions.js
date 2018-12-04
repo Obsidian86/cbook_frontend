@@ -1,9 +1,20 @@
-import { apiCall } from '../helper/apiCall';
-const USER = "5c01643ec393a44374a96f76";
+import { apiCall } from '../helper/apiCall'; 
+ 
+const setLoginUser = (userId) => { 
+    return{ type: "LOGIN_USER", payload: {userId} }
+};
+export const loginUser = (userInfo) => {  
+    return async (dispatch) =>{ 
+        let data = await apiCall({ 
+            method: "POST", 
+            url: "user/login",
+            body: JSON.stringify(userInfo)
+        });
+        if(data.userId){dispatch(setLoginUser(data.userId))}
+    }
+}
 
-//const USER = "5c02cdace1c0fd2b68fab2ba";
-
-
+/// PAGE functions
 export const back = () => ({ type: "HOME_PAGE" });
 
 export const toggleDrawer = (drawer) =>({
@@ -82,20 +93,20 @@ export const sendUpdateTransaction = (tran) => {
 
 //BANK ACCOUNT FUNCTIONS
 
-const setAddAccount = (accountInfo) => ({
+const setAddAccount = (accountInfo, tran) => ({
     type: "ADD_ACCOUNT", 
-    payload: accountInfo
+    payload: {accountInfo, tran}
 });
 
-export const addAccount = (accountInfo) => {  
+export const addAccount = (accountInfo, userId) => {  
     return async (dispatch) =>{
         let data = await apiCall({
-            url: "accounts/" + USER, 
+            url: "accounts/" + userId, 
             method: "POST",
             body: JSON.stringify(accountInfo)
         });
         if(data.synced > 0){ 
-            dispatch(setAddAccount(data.account));
+            dispatch(setAddAccount(data.account, data.tran));
         }
     }
 } 
@@ -105,10 +116,10 @@ const setDeleteAccount = (id) => ({
     payload: {id}
 });
 
-export const deleteAccount = (id) => { 
+export const deleteAccount = (id, userId) => { 
     return async (dispatch) =>{
         let data = await apiCall({
-            url: "accounts/" + USER, 
+            url: "accounts/" + userId, 
             method: "DELETE",
             body: JSON.stringify({account: id})
         });
@@ -123,10 +134,10 @@ const setAccounts = (accountData) =>({
     payload: { accounts: accountData } 
 }); 
 
-export const loadAccounts = (dispatch) =>{
+export const loadAccounts = (userId) =>{ 
     return async (dispatch) => { 
         let data = await apiCall({
-            url: "accounts/" + USER
+            url: "accounts/" + userId
         }); 
         let useData;
         if( localStorage.getItem("localAccounts") === null ){ 

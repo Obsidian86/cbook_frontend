@@ -4,12 +4,10 @@ import AccountCard from './fragments/AccountCard';
 import { loadAccounts } from '../actions/actions';
 
 class ChooseAccount extends Component{
-    render(props){ 
+    render(){ 
         let {accounts, loadState} = this.props;  
         let list = accounts.length > 0 ? 
-            accounts.map(account => {
-                return( <AccountCard account={account} key={ account._id } /> ) 
-            }) 
+            accounts.map(account => <AccountCard account={account} key={ account._id } /> ) 
             : <p><strong>Add a new account to begin</strong></p>;
 
         return(
@@ -22,25 +20,18 @@ class ChooseAccount extends Component{
     }
 
     componentDidMount(){
-        if(this.props.loadState === "loading"){
-            this.props.loadAccounts();
-        }
-    }
-
-
+        if(this.props.loadState === "loading"){ this.props.loadAccounts(this.props.userId); }
+    } 
 }
 
-const mapDispatchToProps = dispatch =>{
-    return{
-        loadAccounts: () =>{ dispatch(loadAccounts() )}
-    };
-};
+const mapDispatchToProps = dispatch =>({
+        loadAccounts: (userId) => dispatch(loadAccounts(userId))
+    });
 
-const mapStateToProps = (state) =>{
-    return {
-        accounts: state.accounts,
-        loadState: state.loadState
-    };
-};
+const mapStateToProps = (state) =>({
+    accounts: state.accounts,
+    loadState: state.loadState,
+    userId: state.user
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseAccount);
