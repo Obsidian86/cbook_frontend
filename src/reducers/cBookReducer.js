@@ -34,8 +34,8 @@ const cBookreducer = (state=defaultState, action) => {
                 }
             }
             return {...state, accountView: transaction, accounts: allAccounts };
-        case "SET_UPDATE_TRANSACTION":   
-            return {...state, drawer: true, updatingTransaction: action.payload };
+        case "SET_UPDATE_TRANSACTION":
+            return {...state, drawer: true, updatingTransaction: Object.assign({}, action.payload) };
         case "SEND_UPDATE_TRANSACTION": 
             for( let i=0; i< accounts.length; i++){ 
                 if( accounts[i]._id === action.payload.account_id ){
@@ -47,8 +47,8 @@ const cBookreducer = (state=defaultState, action) => {
                         } 
                     } 
                 }
-            }  
-            return {...state, drawer: false, updatingTransaction: "", accounts: [...accounts], accountView: accounts[accNum] };
+            } 
+            return {...state, drawer: false, updatingTransaction: "", accounts: [...accounts], accountView: Object.assign({}, accounts[accNum]) };
         case "DELETE_TRANSACTION":
             for( let i=0; i<accounts.length; i++){
                 if( accounts[i]._id === action.payload.accountId ){

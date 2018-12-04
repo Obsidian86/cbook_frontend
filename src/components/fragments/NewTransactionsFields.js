@@ -13,6 +13,7 @@ class NewTransactionsFields extends Component {
 
     render(){  
         let upTran = this.props.updatingTransaction; 
+        upTran.amount = upTran.amount.toString();
         let clearedFields;
         let depositFields;
         let amountField; 

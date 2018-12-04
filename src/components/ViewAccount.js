@@ -3,6 +3,7 @@ import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
 import { deleteTransaction, back, deleteAccount, setUpdateTransaction } from '../actions/actions';
 import Settings from './Settings';
+import TransactionList from './fragments/TransactionList';
  
 class ViewAccount extends Component {  
     constructor(){
@@ -30,8 +31,8 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, deleteTransaction, accountView, setUpdateTransaction } = this.props;
-        let { name, desc, balance, transactions, _id } = accountView;  
+        let { back, accountView, setUpdateTransaction } = this.props;
+        let { name, desc, balance, transactions, _id } = accountView;   
         return(
             <div>
                 { this.state.settings === true && <Settings name={name} id={_id} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
@@ -45,33 +46,20 @@ class ViewAccount extends Component {
                         <p>{ desc }</p>
                         <p>{ convMoney(balance) }</p>
                     </div> 
-                    { transactions.map((tran, index)=> (
-                        <div key={index} id={`t${index}`} className="interact" onClick={() => this.toggleOptions(`t${index}`) }>
-                            <div className="mainLine">
-                                <p>{ tran.payee } </p>
-                                <p className={ tran.amount >= 0 ? "add" : "subtract" } >{ convMoney(tran.amount) }</p>
-                            </div>
-                            <div className="column">
-                                <p>{tran.date}</p>
-                                <p>{tran.cleared === "yes" ? "cleared" : "not cleared"}</p>
-                            </div>
-                            <div className="options">
-                                <button className="green" onClick={()=>{ setUpdateTransaction(tran) }} >update</button>
-                                <button className="red" onClick={ () => deleteTransaction(_id, tran._id) } >delete</button>
-                            </div>
-                        </div>
-                    ))}
-                    
+                    <TransactionList 
+                        toggleOptions={this.toggleOptions} 
+                        setUpdateTransaction={setUpdateTransaction} 
+                        deleteTransaction={this.props.deleteTransaction} 
+                        transactions={transactions} 
+                        accountId={accountView._id} 
+                    />
                 </div>
             </div>
         )
     }
     
-}
-
-const mapStateToProps = (state) =>{ 
-    return{accountView : state.accountView }
-}
+} 
+const mapStateToProps = (state) =>({accountView : state.accountView});
 const mapDispatchToProps = (dispatch) =>{
     return { 
         deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)),
