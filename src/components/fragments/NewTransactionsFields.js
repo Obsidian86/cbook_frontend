@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { todayDate } from '../../helper/date'; 
 import { connect } from 'react-redux'; 
-import { isRegExp } from 'util';
  
 class NewTransactionsFields extends Component {  
     

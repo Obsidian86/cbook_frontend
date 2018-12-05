@@ -1,5 +1,3 @@
-import { todayDate } from '../helper/date';
-
 let defaultState = {
     page: "Log In",
     message: "",
