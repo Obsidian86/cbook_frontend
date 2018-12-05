@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
-import { deleteTransaction, back, deleteAccount, setUpdateTransaction } from '../actions/actions';
+import { deleteAccount, deleteTransaction, setUpdateTransaction, back } from '../actions';  
 import Settings from './Settings';
 import TransactionList from './fragments/TransactionList';
  

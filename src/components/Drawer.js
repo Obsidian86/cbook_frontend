@@ -3,7 +3,7 @@ import '../styles/drawerStyles.css';
 import { connect } from 'react-redux';
 import NewAccountFields from './fragments/NewAccountFields';
 import NewTransactionsFields from './fragments/NewTransactionsFields';
-import { toggleDrawer, addTransaction, addAccount, sendUpdateTransaction } from '../actions/actions';
+import { addAccount, addTransaction, sendUpdateTransaction, toggleDrawer } from '../actions';
 
 class Drawer extends Component{ 
     constructor(props){

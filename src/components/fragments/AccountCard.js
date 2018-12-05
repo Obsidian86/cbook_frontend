@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { convMoney } from '../../helper/money';
 import { connect } from 'react-redux';
-import { viewAccount } from '../../actions/actions';
+import { viewAccount } from '../../actions';
 
 
 class AccountCard extends Component{ 
@@ -18,11 +18,9 @@ class AccountCard extends Component{
     } 
 } 
 
-const mapDispatchToProps = dispatch => {
-    return{
+const mapDispatchToProps = dispatch => ({
         viewAccount:  account => dispatch( viewAccount(account) )
-    }
-}
+    });
 
 const mapStateToProps = (state) =>{
     return {}

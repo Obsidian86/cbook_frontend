@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'; 
-import { loginUser } from '../actions/actions';
+import { loginUser } from '../actions';
 
 class ChooseUser extends Component{  
     handleLogin = (e) =>{

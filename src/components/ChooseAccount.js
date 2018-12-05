@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux';
 import AccountCard from './fragments/AccountCard';
-import { loadAccounts } from '../actions/actions';
+import { loadAccounts } from '../actions';
 
 class ChooseAccount extends Component{
     render(){ 
