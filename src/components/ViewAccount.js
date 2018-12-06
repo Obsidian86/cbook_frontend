@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
-import { deleteAccount, deleteTransaction, setUpdateTransaction, back } from '../actions';  
+import { deleteTransaction, setUpdateTransaction, back } from '../actions';  
 import Settings from './Settings';
 import TransactionList from './fragments/TransactionList';
  
@@ -31,11 +31,11 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, accountView, setUpdateTransaction, userId } = this.props;
-        let { name, desc, balance, transactions, _id } = accountView;   
+        let { back, accountView, setUpdateTransaction } = this.props;
+        let { name, desc, balance, transactions } = accountView;   
         return(
             <div>
-                { this.state.settings === true && <Settings name={name} id={_id} userId={userId} toggleSettings={this.toggleSettings } deleteAccount={ this.props.deleteAccount } /> }
+                { this.state.settings === true && <Settings /> }
                 <div className='displayList'>
                     <div className="column">
                         <button onClick={ back }>Back</button>
@@ -65,8 +65,7 @@ const mapStateToProps = (state) =>({
 });
 const mapDispatchToProps = (dispatch) =>{
     return { 
-        deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)),
-        deleteAccount: (id, userId) => dispatch(deleteAccount(id, userId)),
+        deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)), 
         setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
         back: () => dispatch(back())
     }

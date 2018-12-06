@@ -7,21 +7,7 @@ button {
     cursor: pointer;
     border: none; 
 }
-button.red{
-    background-color: darkred; 
-    color: white; 
-    border-radius: 8px; 
-}
-button.blue{
-    background-color: rgb(0, 119, 255); 
-    color: white; 
-    border-radius: 8px; 
-}
-button.green{
-    background-color: green;
-    color: white; 
-    border-radius: 8px; 
-}
+
 .centered{
     text-align: center;
 } 
@@ -39,6 +25,21 @@ button.green{
     padding: 10px;;
 }
 .column button:hover{ color: black; }
+button.red{
+    background-color: darkred; 
+    color: white; 
+    border-radius: 8px; 
+}
+button.blue{
+    background-color: rgb(0, 119, 255); 
+    color: white; 
+    border-radius: 8px; 
+}
+button.green{
+    background-color: green;
+    color: white; 
+    border-radius: 8px; 
+}
 .header{
     background-color: green;
     height: 48px;

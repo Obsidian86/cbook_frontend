@@ -44,3 +44,6 @@ export const deleteTransaction = (state, action) => {
         accountView: {...accounts[accNum]} 
     };
 }
+export const setUpdateTransaction = (state, action) =>{
+    return {...state, drawer: true, updatingTransaction: Object.assign({}, action.payload) };
+}

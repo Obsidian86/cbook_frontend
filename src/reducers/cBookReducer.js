@@ -1,40 +1,47 @@
-import { addTransaction, sendUpdateTransaction, deleteTransaction } from './reducerActions/transactions'
+import * as transReducer from './reducerActions/transactions';
+import * as accountReducer from './reducerActions/accounts';
+import * as viewReducer from './reducerActions/views';
+import * as userReducer from './reducerActions/user';
 import defaultState from './defaultState';
  
-const cBookreducer = (state=defaultState, action) => {
-    let accounts = [...state.accounts]; 
+
+const cBookreducer = (state=defaultState, action) => { 
     switch( action.type ){
         case "LOGIN_USER":
-            return {...state, message: "", user: action.payload.userId, page: "All Accounts" };
+            return userReducer.loginUser(state, action);
         case "LOGOUT_USER":
-            return { ...defaultState };
+            return { ...defaultState }; 
+        case "DELETE_USER":
+            return userReducer.deleteUser(state, action); 
+
         case "LOAD_ACCOUNTS":  
-            return {...state, loadState: "loaded", accounts: action.payload.accounts};
-        case "ADD_ACCOUNT":  
-            let newAcc = { ...action.payload.accountInfo }
-            newAcc.transactions = [action.payload.tran];  
-            return Object.assign({...state, accounts: [...state.accounts, newAcc ] });
+            return accountReducer.loadAccounts(state, action);
+        case "ADD_ACCOUNT":
+            return accountReducer.addAccount(state, action);
         case "DELETE_ACCOUNT":   
-            return { ...state, accounts: accounts.filter(acc => acc._id !== action.payload.id ), drawer: false, page: "All Accounts", accountView: {}};
+            return accountReducer.deleteAccount(state, action);
 
         case "ADD_TRANSACTION": 
-            return addTransaction(state, action);
+            return transReducer.addTransaction(state, action);
         case "SET_UPDATE_TRANSACTION":
-            return {...state, drawer: true, updatingTransaction: Object.assign({}, action.payload) };
+            return transReducer.setUpdateTransaction(state, action);
         case "SEND_UPDATE_TRANSACTION": 
-            return sendUpdateTransaction(state, action);
+            return transReducer.sendUpdateTransaction(state, action);
         case "DELETE_TRANSACTION":
-            return deleteTransaction(state, action);
+            return  transReducer.deleteTransaction(state, action);
+
         case "VIEW_PAGE": 
-            let vAccount = state.accounts.filter((account) => action.payload.accountView === account._id ); 
-            return {...state, drawer: false, page: action.payload.page, accountView: Object.assign({ ...vAccount[0] }) }
+            return viewReducer.viewPage(state, action);
         case "HOME_PAGE":  
-            return {...state, drawer: false, page: "All Accounts", accountView: {}};
+            return viewReducer.homePage(state, action);
+        case "SET_MESSAGE":
+            return viewReducer.setMessage(state, action);
         case "TOGGLE_DRAWER": 
-            return {...state, drawer: action.payload.drawer, updatingTransaction: ""}; 
+            return viewReducer.toggleDrawer(state, action);
+
         default:
             return state;
     }
-}
+} 
 
 export default cBookreducer;

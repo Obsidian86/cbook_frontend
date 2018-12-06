@@ -9,6 +9,7 @@ export const apiCall = async (callParams) =>{
     .then(data => data.json())
     .then(data => data)
     .catch(err => { 
+        console.log(err);
         return({ synced: 0 });
     })
 }

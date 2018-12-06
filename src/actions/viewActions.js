@@ -12,3 +12,7 @@ export const viewAccount = (account) => ({
         accountView: account
     } 
 });
+export const setMessage = (message) => ({
+    type: "SET_MESSAGE",
+    payload: message 
+});
