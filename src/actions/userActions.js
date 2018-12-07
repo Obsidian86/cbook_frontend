@@ -48,3 +48,17 @@ export const createUser = (createInfo) =>{
         }
     }
 }
+ 
+export const deleteUser = (userId) =>{
+    return async (dispatch) =>{
+        dispatch({type: "SET_MESSAGE", payload:{message: "Deleting user"}});
+        let data = await apiCall({
+            method: "DELETE", 
+            url: `user/${userId}` 
+        });
+        if(data.synced > 0){
+            dispatch({type: "SET_MESSAGE", payload:{message: ""}});
+            dispatch( logOut() );
+        }
+    }
+}

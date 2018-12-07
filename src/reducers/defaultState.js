@@ -6,7 +6,8 @@ const defaultState = {
     updatingTransaction: "",
     loadState: "loading",
     accounts: [],
-    drawer: false
+    drawer: false,
+    settings: false
 };
 
 export default defaultState;

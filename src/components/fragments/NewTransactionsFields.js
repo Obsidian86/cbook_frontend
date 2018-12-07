@@ -28,7 +28,7 @@ class NewTransactionsFields extends Component {
             depositFields = () =>( 
                 <span>
                     <p className="f_choice setDeposit choice" onClick={(event) => this.props.setChoice(event)}>Deposit</p>
-                    <p className="f_choice setDeposit setFalse" onClick={(event) => this.props.setChoice(event)}>withdrawl</p>
+                    <p className="f_choice setDeposit setFalse" onClick={(event) => this.props.setChoice(event)}>withdraw</p>
                 </span>
             );
         } else{

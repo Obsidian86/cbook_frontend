@@ -16,3 +16,6 @@ export const setMessage = (message) => ({
     type: "SET_MESSAGE",
     payload: message 
 });
+export const toggleSettings = () => ({ 
+    type: "TOGGLE_SETTINGS" 
+});

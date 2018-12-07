@@ -1,13 +1,17 @@
 export const addTransaction = (state, action) => {
-    let transaction = Object.assign({ ...state.accountView, balance: (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount)), transactions: [action.payload, ...state.accountView.transactions ] } ); 
+    let account = Object.assign({}, state.accountView);
+    account.balance = (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount));
+    account.transactions = [action.payload, ...state.accountView.transactions ];
+    
     let allAccounts = [...state.accounts]; 
+
     for(let i=0; i<allAccounts.length; i++){
-        if(allAccounts[i].id === state.accountView.id){
-            allAccounts[i] = transaction;
+        if(allAccounts[i]._id === account._id){
+            allAccounts[i] = account;
             break;
         }
     }
-    return {...state, accountView: transaction, accounts: allAccounts };
+    return {...state, accountView: account, accounts: [...allAccounts] };
 }
 
 export const sendUpdateTransaction = (state, action) => {

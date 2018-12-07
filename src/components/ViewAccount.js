@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import { convMoney } from '../helper/money'
 import { connect } from 'react-redux';
-import { deleteTransaction, setUpdateTransaction, back } from '../actions';  
+import { deleteTransaction, setUpdateTransaction, back, toggleSettings } from '../actions';  
 import Settings from './Settings';
 import TransactionList from './fragments/TransactionList';
  
-class ViewAccount extends Component {  
-    constructor(){
-        super();
-        this.state = { settings: false } 
-    }
-
-    toggleSettings = () => {
-        this.setState({
-            settings: !this.state.settings
-        });
-    }
+class ViewAccount extends Component { 
 
     toggleOptions = (target) =>{ 
         let targ = document.getElementById(target);
@@ -31,16 +21,16 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, accountView, setUpdateTransaction } = this.props;
+        let { back, accountView, setUpdateTransaction, toggleSettings, settings } = this.props;
         let { name, desc, balance, transactions } = accountView;   
         return(
             <div>
-                { this.state.settings === true && <Settings /> }
+                { settings && <Settings /> }
                 <div className='displayList'>
                     <div className="column">
                         <button onClick={ back }>Back</button>
                         <h2>{ name }</h2>
-                        <button onClick={ this.toggleSettings } >Settings</button>
+                        <button onClick={ toggleSettings } >Settings</button>
                     </div>
                     <div className='info centered'>
                         <p>{ desc }</p>
@@ -61,13 +51,15 @@ class ViewAccount extends Component {
 } 
 const mapStateToProps = (state) =>({
     accountView : state.accountView,
-    userId: state.user
+    userId: state.user,
+    settings: state.settings
 });
 const mapDispatchToProps = (dispatch) =>{
     return { 
         deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)), 
         setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
-        back: () => dispatch(back())
+        back: () => dispatch(back()),
+        toggleSettings: () => dispatch(toggleSettings())
     }
 }
 

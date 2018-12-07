@@ -11,3 +11,6 @@ export const homePage = (state, action) =>{
 export const setMessage = (state, action) =>{
     return {...state, message: action.payload.message}
 }
+export const toggleSettings = (state) =>{
+    return {...state, settings: !state.settings }
+}

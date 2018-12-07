@@ -6,7 +6,7 @@ import ChooseUser from './components/ChooseUser';
 import ChooseAccount from './components/ChooseAccount';
 import ViewAccount from './components/ViewAccount';
 import Header from './components/Header';
-import Drawer from './components/Drawer';
+import Drawer from './components/Drawer'; 
 
 class App extends Component { 
   render() {
@@ -26,12 +26,14 @@ class App extends Component {
       <div>
         <Header title={this.props.page}/>
         { component }
-        { this.props.page !== "Log In" && <Drawer /> }
+        { this.props.page !== "Log In" && <Drawer /> } 
       </div>
     );
   }
 }
 
-const mapStateToProps = (state)=>({ page: state.page });
+const mapStateToProps = (state)=>({ 
+  page: state.page 
+});
 
 export default connect(mapStateToProps)(App);

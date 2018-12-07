@@ -25,12 +25,14 @@ const setDeleteAccount = (id) => ({
 
 export const deleteAccount = (id, userId) => { 
     return async (dispatch) =>{
+        dispatch({type: "SET_MESSAGE", payload:{message: "Deleting account"}});
         let data = await apiCall({
             url: "accounts/" + userId, 
             method: "DELETE",
             body: JSON.stringify({account: id})
         });
         if(data.synced > 0){
+            dispatch({type: "SET_MESSAGE", payload:{message: ""}});
             dispatch(setDeleteAccount(id));
         }
     }

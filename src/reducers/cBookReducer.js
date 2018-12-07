@@ -10,9 +10,7 @@ const cBookreducer = (state=defaultState, action) => {
         case "LOGIN_USER":
             return userReducer.loginUser(state, action);
         case "LOGOUT_USER":
-            return { ...defaultState }; 
-        case "DELETE_USER":
-            return userReducer.deleteUser(state, action); 
+            return { ...defaultState };  
 
         case "LOAD_ACCOUNTS":  
             return accountReducer.loadAccounts(state, action);
@@ -30,6 +28,8 @@ const cBookreducer = (state=defaultState, action) => {
         case "DELETE_TRANSACTION":
             return  transReducer.deleteTransaction(state, action);
 
+        case "TOGGLE_SETTINGS": 
+            return viewReducer.toggleSettings(state);
         case "VIEW_PAGE": 
             return viewReducer.viewPage(state, action);
         case "HOME_PAGE":  
