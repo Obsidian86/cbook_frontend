@@ -10,10 +10,13 @@ export const addAccount = (accountInfo, userId) => {
         let data = await apiCall({
             url: "accounts/" + userId, 
             method: "POST",
-            body: JSON.stringify(accountInfo)
+            body: JSON.stringify(accountInfo),
+            applyAuth: true
         });
-        if(data.synced > 0){ 
+        if(!data.error){ 
             dispatch(setAddAccount(data.account, data.tran));
+        }else{
+            dispatch({type: "ERROR", payload: data.error.error })
         }
     }
 } 
@@ -29,11 +32,14 @@ export const deleteAccount = (id, userId) => {
         let data = await apiCall({
             url: "accounts/" + userId, 
             method: "DELETE",
-            body: JSON.stringify({account: id})
+            body: JSON.stringify({account: id}),
+            applyAuth: true
         });
-        if(data.synced > 0){
+        if(!data.error){
             dispatch({type: "SET_MESSAGE", payload:{message: ""}});
             dispatch(setDeleteAccount(id));
+        }else{
+            dispatch({type: "ERROR", payload: data.error.error })
         }
     }
 }; 
@@ -43,18 +49,17 @@ const setAccounts = (accountData) =>({
     payload: { accounts: accountData } 
 }); 
 
-export const loadAccounts = (userId) =>{ 
+export const loadAccounts = (userId) =>{  
     return async (dispatch) => { 
         let data = await apiCall({
-            url: "accounts/" + userId
+            url: `accounts/${userId}`,
+            applyAuth: true
         }); 
-        let useData;
-        if( localStorage.getItem("localAccounts") === null ){ 
-            useData = data.accounts; 
+        let useData = data.accounts;  
+        if(!data.error){
+            dispatch(setAccounts(useData));
         }else{
-            let localData = JSON.parse(localStorage.getItem("localAccounts"));
-            useData = localData.synced > data.synced ? localData.accounts : data.accounts;
-        }  
-        dispatch(setAccounts(useData));
+            dispatch({type: "ERROR", payload: data.error.error });
+        } 
     } 
 }

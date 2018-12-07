@@ -7,6 +7,10 @@ import defaultState from './defaultState';
 
 const cBookreducer = (state=defaultState, action) => { 
     switch( action.type ){
+        case "ERROR":
+            if(localStorage.getItem("authToken") !== null){ localStorage.removeItem("authToken"); } ;
+            if(localStorage.getItem("user") !== null){ localStorage.removeItem("user"); } ;
+            return {...defaultState, message: action.payload }
         case "LOGIN_USER":
             return userReducer.loginUser(state, action);
         case "LOGOUT_USER":
@@ -19,7 +23,7 @@ const cBookreducer = (state=defaultState, action) => {
         case "DELETE_ACCOUNT":   
             return accountReducer.deleteAccount(state, action);
 
-        case "ADD_TRANSACTION": 
+        case "ADD_TRANSACTION":
             return transReducer.addTransaction(state, action);
         case "SET_UPDATE_TRANSACTION":
             return transReducer.setUpdateTransaction(state, action);

@@ -21,7 +21,7 @@ class ViewAccount extends Component {
     }
     
     render(){
-        let { back, accountView, setUpdateTransaction, toggleSettings, settings } = this.props;
+        let { back, accountView, setUpdateTransaction, toggleSettings, settings, userId } = this.props;
         let { name, desc, balance, transactions } = accountView;   
         return(
             <div>
@@ -39,7 +39,8 @@ class ViewAccount extends Component {
                     <TransactionList 
                         toggleOptions={this.toggleOptions} 
                         setUpdateTransaction={setUpdateTransaction} 
-                        deleteTransaction={this.props.deleteTransaction} 
+                        deleteTransaction={this.props.deleteTransaction}
+                        userId={userId}
                         transactions={transactions} 
                         accountId={accountView._id} 
                     />
@@ -56,7 +57,7 @@ const mapStateToProps = (state) =>({
 });
 const mapDispatchToProps = (dispatch) =>{
     return { 
-        deleteTransaction: (accountId, transId) => dispatch(deleteTransaction(accountId, transId)), 
+        deleteTransaction: (accountId, transId, userId) => dispatch(deleteTransaction(accountId, transId, userId)), 
         setUpdateTransaction: (tran) => dispatch(setUpdateTransaction(tran)),
         back: () => dispatch(back()),
         toggleSettings: () => dispatch(toggleSettings())

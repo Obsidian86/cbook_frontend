@@ -4,12 +4,12 @@ export const apiCall = async (callParams) =>{
         method: callParams.method || "GET",
         headers: {"content-type": "application/json"},
     } 
-    if(callParams.body){ callFilter.body = callParams.body }; 
+    if(callParams.applyAuth){ callFilter.headers.Authorization = `Bearer: ${localStorage.getItem("authToken")}`}
+    if(callParams.body){ callFilter.body = callParams.body };  
     return fetch(URL, callFilter)
     .then(data => data.json())
     .then(data => data)
-    .catch(err => { 
-        console.log(err);
+    .catch(err => {  
         return({ synced: 0 });
     })
 }

@@ -15,7 +15,7 @@ const TransactionList = (props) =>{
                 </div>
                 <div className="options">
                     <button className="green" onClick={()=>{ props.setUpdateTransaction(tran) }} >update</button>
-                    <button className="red" onClick={ () => props.deleteTransaction(props.accountId, tran._id) } >delete</button>
+                    <button className="red" onClick={ () => props.deleteTransaction(props.accountId, tran._id, props.userId) } >delete</button>
                 </div>
             </div>
         ))
