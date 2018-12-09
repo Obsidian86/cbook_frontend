@@ -22,7 +22,8 @@ class ViewAccount extends Component {
     
     render(){
         let { back, accountView, setUpdateTransaction, toggleSettings, settings, userId } = this.props;
-        let { name, desc, balance, transactions } = accountView;   
+        let { name, desc, balance, transactions } = accountView; 
+        transactions.reverse();  
         return(
             <div>
                 { settings && <Settings /> }
