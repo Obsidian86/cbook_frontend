@@ -1,9 +1,9 @@
 import React from 'react'; 
 import { convMoney } from '../../helper/money' 
 
-const TransactionList = (props) =>{
+const TransactionList = (props) =>{ 
     return(
-         props.transactions.map((tran, index)=> (
+        props.transactions.slice(0).reverse().map((tran, index)=> (
             <div key={index} id={`t${index}`} className="interact" onClick={() => props.toggleOptions(`t${index}`) }>
                 <div className="mainLine">
                     <p>{ tran.payee } </p>

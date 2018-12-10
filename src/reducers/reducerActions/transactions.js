@@ -1,7 +1,7 @@
 export const addTransaction = (state, action) => {
     let account = Object.assign({}, state.accountView);
     account.balance = (parseFloat(state.accountView.balance) + parseFloat(action.payload.amount));
-    account.transactions = [action.payload, ...state.accountView.transactions ];
+    account.transactions = [...state.accountView.transactions, action.payload];
     
     let allAccounts = [...state.accounts]; 
 

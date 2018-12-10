@@ -1,5 +1,5 @@
 export const apiCall = async (callParams) =>{
-    let URL = `http://localhost:3089/${callParams.url && callParams.url}`; 
+    let URL = `https://cbook-backend.herokuapp.com/${callParams.url && callParams.url}`; 
     let callFilter = {
         method: callParams.method || "GET",
         headers: {"content-type": "application/json"},
